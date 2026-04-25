@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NameGenius - AI-Powered Project Names</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 min-h-screen flex items-center justify-center p-4">
+    <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-md text-center">
+        <h1 class="text-4xl font-bold mb-4 text-purple-700">NameGenius</h1>
+        <p class="text-gray-600 mb-6">Craft your perfect unique name with AI.</p>
+
+        <input type="text" id="promptInput" placeholder="e.g., 'AI-powered expense tracker, modern, clean'"
+               class="w-full p-3 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+        
+        <button id="generateButton" class="w-full bg-purple-600 text-white p-3 rounded-md font-semibold hover:bg-purple-700 transition duration-300">
+            Generate Names
+        </button>
+
+        <div id="results" class="mt-6 text-left">
+            <h2 class="text-xl font-semibold mb-2">Suggestions:</h2>
+            <ul id="nameList" class="list-disc pl-5 text-gray-700">
+                <!-- Names will be injected here -->
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('generateButton').addEventListener('click', async () => {
+            const prompt = document.getElementById('promptInput').value;
+            const nameList = document.getElementById('nameList');
+            nameList.innerHTML = '<li>Generating...</li>';
+
+            try {
+                // In a real app, this would hit your backend API
+                // For demo, simulate a response
+                const response = await new Promise(resolve => setTimeout(() => {
+                    resolve({
+                        names: [
+                            'ApexTrackr.com (Available)',
+                            'FinFlowAI.com (Taken)',
+                            'MonetaMind.co (Available)',
+                            'ZenLedger.app (Available)'
+                        ]
+                    });
+                }, 1500));
+
+                nameList.innerHTML = response.names.map(name => `<li>${name}</li>`).join('');
+            } catch (error) {
+                nameList.innerHTML = '<li class="text-red-500">Error generating names.</li>';
+                console.error('Generation error:', error);
+            }
+        });
+    </script>
+</body>
+</html>
